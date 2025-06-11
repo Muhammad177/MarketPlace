@@ -1,0 +1,22 @@
+#slider-dots {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .dot {
+    width: 15px;
+    height: 15px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dot.active {
+    background-color: #333; /* Active dot in dark color */
+  }
+  
+  .dot:hover {
+    background-color: #555; /* Hover effect */
+  }
+  
