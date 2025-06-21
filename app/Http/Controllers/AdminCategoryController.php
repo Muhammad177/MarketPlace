@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    use AuthorizesRequests;
     public function index()
     {
         $this->authorize('admin');

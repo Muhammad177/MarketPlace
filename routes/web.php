@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardPostController;
+use App\Http\Middleware\role;
 use Cviebrock\EloquentSluggable\Tests\Models\Post;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -34,7 +35,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
         Route::get('/categories/checkSlug', [AdminCategoryController::class, 'checkSlug']);
         Route::resource('/posts', DashboardPostController::class);
-        Route::resource('/categories', AdminCategoryController::class)->middleware('admin');
+        Route::resource('/categories', AdminCategoryController::class);
         
     });
     Route::prefix('post')->group(function () {
