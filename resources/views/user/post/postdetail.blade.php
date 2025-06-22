@@ -11,12 +11,15 @@
 
             <figure>
               @if ($post->image)
-                <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid mt-3" alt="{{ $post->category->name }}">
+                <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid mt-3 zoomable-image"
+                  alt="{{ $post->category->name }}" style="cursor:pointer;">
               @else
-                <img src="https://doran.id/wp-content/uploads/2024/02/artikel-komputer.jpg" class="img-fluid mt-3"
-                  alt="{{ $post->category->name }}">
+                <img src="https://doran.id/wp-content/uploads/2024/02/artikel-komputer.jpg"
+                  class="img-fluid mt-3 zoomable-image" alt="{{ $post->category->name }}" style="cursor:pointer;">
               @endif
             </figure>
+
+        
 
             <p class="text-muted">
               By
@@ -51,25 +54,43 @@
               {{-- Komentar awal --}}
               <div id="initial-comments">
                 @foreach ($initialComments as $comment)
-                  <article class="comment mb-3 border-bottom pb-2">
-                    <header class="d-flex justify-content-between">
-                      <strong>{{ $comment->author->name }}</strong>
-                      <small>{{ $comment->created_at->diffForHumans() }}</small>
+                  <article class="comment mb-3 border-bottom pb-2"
+                    style="border-width: 3px !important; border-style: solid;">
+                    <header class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex align-items-center gap-2 mt-3">
+                        <img
+                          src="{{ $comment->author->profile_photo_url ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH9nZ4hFrKP4Az1ISx3-1N24TyCdvSAlNZzQ&s' }}"
+                          alt="Foto Profil {{ $comment->author->name }}"
+                          style="width: 40px; height: 40px; border-radius: 50%; object-fit: contain; flex-shrink: 0; cursor:pointer;"
+                          class="zoomable-image-profile">
+                        <strong class="mb-0">{{ $comment->author->name }}</strong>
+                      </div>
+                      <small class="text-muted p-3">{{ $comment->created_at->diffForHumans() }}</small>
                     </header>
-                    <p class="mb-0">{{ $comment->body }}</p>
+                    <p class="mb-0 mt-2 p-3">{{ $comment->body }}</p>
                   </article>
                 @endforeach
               </div>
 
+
+
               {{-- Komentar tambahan, awalnya tersembunyi --}}
               <div id="more-comments" style="display: none;">
                 @foreach ($remainingComments as $comment)
-                  <article class="comment mb-3 border-bottom pb-2">
+                  <article class="comment mb-3 border-bottom pb-2"
+                    style="border-width: 3px !important; border-style: solid;">
                     <header class="d-flex justify-content-between">
-                      <strong>{{ $comment->author->name }}</strong>
-                      <small>{{ $comment->created_at->diffForHumans() }}</small>
+                     <div class="d-flex align-items-center gap-2 mt-3">
+                        <img
+                          src="{{ $comment->author->profile_photo_url ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH9nZ4hFrKP4Az1ISx3-1N24TyCdvSAlNZzQ&s' }}"
+                          alt="Foto Profil {{ $comment->author->name }}"
+                          style="width: 40px; height: 40px; border-radius: 50%; object-fit: contain; flex-shrink: 0; cursor:pointer;"
+                          class="zoomable-image-profile">
+                        <strong class="mb-0">{{ $comment->author->name }}</strong>
+                      </div>
+                      <small class="text-muted p-3">{{ $comment->created_at->diffForHumans() }}</small>
                     </header>
-                    <p class="mb-0">{{ $comment->body }}</p>
+                    <p class="mb-0 p-3">{{ $comment->body }}</p>
                   </article>
                 @endforeach
               </div>
@@ -112,71 +133,81 @@
       </div>
     </div>
   </main>
+    <!-- Modal -->
+      <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-body p-0 d-flex justify-content-center align-items-center" style="background-color: rgba(0,0,0,0.7);">
+        <img
+          src=""
+          id="modalImage"
+          class="img-fluid"
+          alt="Zoomed Image"
+          style="max-height: 90vh; object-fit: contain; background-color: #fff; padding: 10px; border-radius: 10px;"
+        >
+      </div>
+    </div>
+  </div>
+</div>
 
   {{-- Script AJAX Komentar --}}
   <script>
-  document.getElementById('comment-form').addEventListener('submit', function(e) {
-  e.preventDefault();
+    document.querySelectorAll('.zoomable-image, .zoomable-image-profile').forEach(img => {
+      img.style.cursor = 'pointer'; // pastikan cursor pointer
 
-  const form = e.target;
-  const formData = new FormData(form);
-  const initialCommentsDiv = document.getElementById('initial-comments');
-  const moreCommentsDiv = document.getElementById('more-comments');
-  const toggleBtn = document.getElementById('toggle-comments-btn');
-
-  fetch('/post/coments', {
-      method: 'POST',
-      headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-        'Accept': 'application/json'
-      },
-      body: formData
-    })
-    .then(res => {
-      if (!res.ok) return res.json().then(err => Promise.reject(err));
-      return res.json();
-    })
-    .then(data => {
-      // Buat elemen komentar baru
-      const commentEl = document.createElement('article');
-      commentEl.classList.add('comment', 'mb-3', 'border-bottom', 'pb-2');
-      commentEl.innerHTML = `
-        <header class="d-flex justify-content-between">
-          <strong>${data.author}</strong>
-          <small>baru saja</small>
-        </header>
-        <p class="mb-0">${data.body}</p>
-      `;
-
-      // Masukkan komentar baru di awal initialCommentsDiv
-      initialCommentsDiv.prepend(commentEl);
-
-      // Batasi jumlah komentar awal (misal maksimal 3)
-      const maxInitial = 3;
-      const initialComments = initialCommentsDiv.querySelectorAll('article.comment');
-
-      if (initialComments.length > maxInitial) {
-        // Pindahkan komentar terakhir di initialComments ke moreComments
-        const lastComment = initialComments[initialComments.length - 1];
-        moreCommentsDiv.prepend(lastComment);
-      }
-
-      // Jika ada komentar di moreComments, pastikan tombol toggle tampil
-      if (moreCommentsDiv.children.length > 0 && toggleBtn.style.display === 'none') {
-        toggleBtn.style.display = 'inline-block';
-      }
-
-      // Reset form
-      form.reset();
-    })
-    .catch(err => {
-      if (err.errors) {
-        alert(Object.values(err.errors).join('\n'));
-      } else {
-        alert('Gagal kirim komentar!');
-      }
+      img.addEventListener('click', function() {
+        const modalImg = document.getElementById('modalImage');
+        modalImg.src = this.src;
+        var myModal = new bootstrap.Modal(document.getElementById('imageModal'));
+        myModal.show();
+      });
     });
-});
 
+
+    document.getElementById('comment-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+      const commentList = document.getElementById('comment-list');
+
+      fetch('/post/coments', {
+          method: 'POST',
+          headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            'Accept': 'application/json'
+          },
+          body: formData
+        })
+        .then(res => {
+          if (!res.ok) return res.json().then(err => Promise.reject(err));
+          return res.json();
+        })
+        .then(data => {
+          // Buat elemen komentar baru
+          const commentEl = document.createElement('article');
+          commentEl.classList.add('comment', 'mb-3', 'border-bottom', 'pb-2');
+          commentEl.innerHTML = `
+          <header class="d-flex justify-content-between">
+            <strong>${data.author}</strong>
+            <small>baru saja</small>
+          </header>
+          <p class="mb-0">${data.body}</p>
+        `;
+
+          // Tambahkan komentar baru ke atas
+          commentList.prepend(commentEl);
+
+          // Reset form
+          form.reset();
+        })
+        .catch(err => {
+          if (err.errors) {
+            alert(Object.values(err.errors).join('\n'));
+          } else {
+            alert('Gagal kirim komentar!');
+          }
+        });
+    });
   </script>
 @endsection
