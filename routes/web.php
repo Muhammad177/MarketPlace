@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
         Route::get('/categories/checkSlug', [AdminCategoryController::class, 'checkSlug']);
         Route::resource('/posts', DashboardPostController::class);
-        Route::resource('/categories', AdminCategoryController::class)->middleware(Role::class);
+        Route::resource('/categories', AdminCategoryController::class)->middleware('role');
 
         
     });
