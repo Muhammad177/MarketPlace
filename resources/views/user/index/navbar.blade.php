@@ -20,7 +20,7 @@
 
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
       <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -72,11 +72,10 @@
         </div>
     </nav>
     </div>
-    <div class="container mt-4 ">
+   <div class="container mt-5 pt-5">
+  @yield('container')
+</div>
 
-      @yield('container')
-
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -7,14 +7,15 @@ use Illuminate\Http\Request;
 
 class Role
 {
-    public function handle(Request $request, Closure $next)
-    {
-        $user = $request->user();
+public function handle(Request $request, Closure $next)
+{
+    $user = $request->user();
 
-        if (!$user || $user->role !== 'admin') {
-            abort(403, 'Anda bukan admin.');
-        }
-
-        return $next($request);
+    if (!$user || !$user->is_admin) {
+        abort(403, 'Anda tidak memiliki hak Admin.');
     }
+
+    return $next($request);
+}
+
 }

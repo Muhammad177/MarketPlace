@@ -40,15 +40,15 @@ class DatabaseSeeder extends Seeder
         //     'category_id' => 1,
         //     'user_id' => 1
         // ]);
-        // Category::create([
-        //     'name' => 'development',
-        //     'slug' => 'web-development'
-        // ]);
+        Category::create([
+            'name' => 'development',
+            'slug' => 'web-development'
+        ]);
 
-        // Category::create([
-        //     'name' => 'dataSains',
-        //     'slug' => 'DS'
-        // ]);
+        Category::create([
+            'name' => 'dataSains',
+            'slug' => 'DS'
+        ]);
         Post::factory(3)->create();
     }
 }
