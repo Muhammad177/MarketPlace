@@ -68,7 +68,8 @@ class DashboardPostController extends Controller
         ]);
     
         if ($request->file('image')) {
-            $data['image'] = $request->file('image')->store('post-images');
+            $data['image'] = $request->file('image')->store('post-images', 'public');
+
         }
     
         $data['user_id'] = auth()->user()->id;
