@@ -40,15 +40,27 @@ class DatabaseSeeder extends Seeder
         // //     'category_id' => 1,
         // //     'user_id' => 1
         // // ]);
-        // Category::create([
-        //     'name' => 'development',
-        //     'slug' => 'web-development'
-        // ]);
 
-        // Category::create([
-        //     'name' => 'dataSains',
-        //     'slug' => 'DS'
-        // ]);
+Category::create([
+    'name' => 'Elektronik',
+    'slug' => 'elektronik'
+]);
+
+Category::create([
+    'name' => 'Kecantikan',
+    'slug' => 'kecantikan'
+]);
+
+Category::create([
+    'name' => 'Fashion',
+    'slug' => 'fashion'
+]);
+
+Category::create([
+    'name' => 'Peralatan Rumah Tangga',
+    'slug' => 'peralatan-rumah-tangga'
+]);
+
         Post::factory(3)->create();
     }
 }
