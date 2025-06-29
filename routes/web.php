@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdminCategoryController;
-use App\Http\Controllers\ComentsController;
 use App\Models\Category;
+use App\Http\Middleware\role;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ComentsController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardPostController;
-use App\Http\Middleware\role;
 use Cviebrock\EloquentSluggable\Tests\Models\Post;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -28,6 +29,7 @@ Route::get('/home', function () {
 
 // Group routes with 'auth' middleware
 Route::middleware('auth')->group(function () {
+    
     Route::post('/logout', [LoginController::class, 'logout']);
 
     Route::prefix('dashboard')->group(function () {
@@ -44,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/{post:slug}', [PostController::class, 'show'])->name('post.show');
     Route::resource('/coments', ComentsController::class);
     });
-    
+     Route::resource('user', UserController::class)->only(['show', 'edit', 'update']);
 });
 
 // Authentication Routes for Guests Only

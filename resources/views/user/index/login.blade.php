@@ -16,7 +16,7 @@
     <div class="container d-flex">
       <div class="background"></div>
 
-      <div class="container d-flex flex-column align-items-center vh-100 justify-content-center">
+      <div class="container d-flex flex-column vh-100">
         <!-- Login Form -->
         <div id="login" class="form-container flex-fill p-3">
           <div class="card">
@@ -28,7 +28,7 @@
                 @csrf
                 <div class="mb-3">
                   <label class="form-label">Email address</label>
-                  <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                  <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"
                     placeholder="Enter email" vaautofocus required >
                   @error('email')
                     <div class="invalid-feedback">{{ $message }}</div>

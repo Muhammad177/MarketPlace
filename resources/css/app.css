@@ -10,3 +10,8 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 @import 'bootstrap/dist/css/bootstrap.min.css';
+/* contoh isi */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}

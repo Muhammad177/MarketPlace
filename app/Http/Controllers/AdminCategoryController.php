@@ -16,8 +16,9 @@ class AdminCategoryController extends Controller
     public function index()
     {
         $this->authorize('admin');
-      
-        $categories = Category::all();
+
+       $categories = Category::withCount('posts')->get();
+
         return view('admin.dashboard.categories.categoryIndex', [
             'categories' => $categories,
             'title' => 'Post Of Categories',
@@ -29,9 +30,9 @@ class AdminCategoryController extends Controller
      */
     public function create()
     {
-        
-        return view('admin.dashboard.categories.createcategory',[
-            'categories' => Category::all() 
+
+        return view('admin.dashboard.categories.createcategory', [
+            'categories' => Category::all()
         ]);
     }
 
@@ -46,9 +47,8 @@ class AdminCategoryController extends Controller
         ]);
 
         Category::create($data);
-    
+
         return redirect('/dashboard/categories')->with('success', 'Category berhasil dibuat!');
-    
     }
 
     /**
@@ -62,15 +62,17 @@ class AdminCategoryController extends Controller
             'posts' => $category->posts()->latest()->paginate(5)
         ]);
     }
-    
-    
+
+
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(category $category)
     {
-        //
+        return view('admin.dashboard.categories.editcategory', [
+        'category' => $category
+    ]);
     }
 
     /**
@@ -78,18 +80,31 @@ class AdminCategoryController extends Controller
      */
     public function update(Request $request, category $category)
     {
-        //
+        $validated = $request->validate([
+        'name' => 'required|max:255',
+    ]);
+
+    $category->update($validated);
+
+    return redirect('/dashboard/categories')->with('success', 'Category berhasil diupdate!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(category $category)
+    public function destroy(Category $category)
     {
-        $category->destroy($category->id);
-        return redirect('/dashboard/categories')->with('success', 'Category berhasil dihapus!');
+        // Hapus semua post yang terkait
+        $category->posts()->delete();
+
+        // Hapus category-nya
+        $category->delete();
+
+        return redirect('/dashboard/categories')->with('success', 'Category dan semua post-nya berhasil dihapus!');
     }
-    public function checkSlug(Request $request){
+
+    public function checkSlug(Request $request)
+    {
         $slug = SlugService::createSlug(Category::class, 'slug', $request->name);
         return response()->json(['slug' => $slug]);
     }

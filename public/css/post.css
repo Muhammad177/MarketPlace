@@ -1,0 +1,14 @@
+
+  /* Tambahkan shadow dan transisi smooth untuk hover */
+  .hover-shadow:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+  }
+  .transition {
+    transition: all 0.3s ease;
+  }
+  /* Text shadow untuk carousel caption */
+  .text-shadow {
+    text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  }

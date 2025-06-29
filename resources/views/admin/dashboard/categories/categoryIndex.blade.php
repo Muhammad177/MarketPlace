@@ -26,7 +26,7 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $category->name }}</td>
-            <td>{{ $category->posts->count() }}</td>
+            <td>{{ $category->posts_count }}</td>
             <td>{{ $category->slug }}</td>
             <td>
               <a href="/dashboard/categories/{{ $category->slug }}" class="badge bg-info"><span

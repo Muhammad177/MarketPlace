@@ -101,23 +101,6 @@
             </div>
           </div>
 
-          <script>
-            const toggleBtn = document.getElementById('toggle-comments-btn');
-            const moreComments = document.getElementById('more-comments');
-
-            toggleBtn?.addEventListener('click', function() {
-              if (moreComments.style.display === 'none') {
-                moreComments.style.display = 'block';
-                toggleBtn.textContent = 'Tampilkan lebih sedikit';
-              } else {
-                moreComments.style.display = 'none';
-                toggleBtn.textContent = 'Tampilkan lainnya';
-                // Scroll ke atas agar user tahu balik ke komentar awal
-                document.getElementById('comment-list').scrollTop = 0;
-              }
-            });
-          </script>
-
           {{-- Form Komentar --}}
           <form id="comment-form" class="mt-4" aria-label="Form komentar">
             @csrf
@@ -209,5 +192,21 @@
           }
         });
     });
+
+
+    const toggleBtn = document.getElementById('toggle-comments-btn');
+            const moreComments = document.getElementById('more-comments');
+
+            toggleBtn?.addEventListener('click', function() {
+              if (moreComments.style.display === 'none') {
+                moreComments.style.display = 'block';
+                toggleBtn.textContent = 'Tampilkan lebih sedikit';
+              } else {
+                moreComments.style.display = 'none';
+                toggleBtn.textContent = 'Tampilkan lainnya';
+                // Scroll ke atas agar user tahu balik ke komentar awal
+                document.getElementById('comment-list').scrollTop = 0;
+              }
+            });
   </script>
 @endsection

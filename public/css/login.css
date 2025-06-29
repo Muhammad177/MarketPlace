@@ -1,8 +1,11 @@
 html, body{
-    overflow: hidden;
-    margin: a;
+    overflow: auto;
+    margin: 0;
     padding: 0;
-    background-color: rgb(21, 160, 202);
+     background-image: url('bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 .form-container {
     max-width: 400px;
@@ -19,8 +22,6 @@ html, body{
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    background-color: aquamarine;
-    border-radius: 80%;
     animation: slideUp 2s ease-out;
     animation-fill-mode: forwards; /* Tetap di posisi akhir animasi */
  

@@ -1,0 +1,76 @@
+html body {
+  background-color: #ced4da;
+}
+
+
+    /* Navbar shadow & sticky */
+    nav.navbar {
+      box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+      backdrop-filter: saturate(180%) blur(10px);
+      background-color: rgba(220, 53, 69, 0.9) !important; /* bg-danger dengan transparansi */
+      transition: background-color 0.3s ease;
+    }
+
+    nav.navbar:hover {
+      background-color: rgba(220, 53, 69, 1) !important;
+    }
+
+    /* Navbar links hover */
+    .navbar-nav .nav-link {
+      transition: color 0.3s ease, border-bottom-color 0.3s ease;
+      font-weight: 600;
+      padding-bottom: 0.3rem;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: #fff;
+      border-bottom: 3px solid #fff;
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* Login button hover */
+    .btn-outline-light {
+      border-width: 2px;
+      font-weight: 600;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-outline-light:hover {
+      background-color: #fff;
+      color: #dc3545;
+      box-shadow: 0 0 8px rgba(220, 53, 69, 0.6);
+    }
+
+    /* Container utama dengan max width & bg */
+    .container.mt-5.pt-5 {
+      max-width: 1140px;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      padding: 2rem 2rem 3rem 2rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 20px rgb(0 0 0 / 0.1);
+      min-height: 80vh;
+    }
+
+    /* Dropdown menu */
+    .dropdown-menu {
+      border-radius: 0.5rem;
+      box-shadow: 0 6px 12px rgb(0 0 0 / 0.15);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .dropdown-menu.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Footer (optional) */
+    footer {
+      background-color: #dc3545;
+      color: #fff;
+      padding: 1rem 0;
+      text-align: center;
+      font-weight: 500;
+      box-shadow: 0 -4px 10px rgb(0 0 0 / 0.1);
+      margin-top: 3rem;
+    }

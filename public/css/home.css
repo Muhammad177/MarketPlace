@@ -1,0 +1,17 @@
+    .card-category {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 1rem;
+}
+
+.card-category:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-category .card-body i {
+  transition: transform 0.3s ease;
+}
+
+.card-category:hover .card-body i {
+  transform: scale(1.2) rotate(5deg);
+}
