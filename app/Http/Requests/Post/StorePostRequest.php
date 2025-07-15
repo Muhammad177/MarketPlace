@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -30,22 +30,3 @@ class StorePostRequest extends FormRequest
         ];
     }
 }
-
-// class UpdatePostRequest extends FormRequest
-// {
-//     public function authorize()
-//     {
-//         return true;
-//     }
-
-//     public function rules()
-//     {
-//         return [
-//             'title' => 'required|max:255',
-//             'slug' => 'nullable|unique:posts,slug,' . $this->post->id,
-//             'body' => 'required',
-//             'category_id' => 'required',
-//             'image' => 'image|file|max:1024',
-//         ];
-//     }
-// }

@@ -1,3 +1,12 @@
+    body {
+      background: linear-gradient(135deg, #1b1b3a, #3a7bd5);
+      min-height: 100vh;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      z-index: 0;
+    }
 .bi {
   display: inline-block;
   width: 1rem;
@@ -45,4 +54,7 @@
 
 .navbar .form-control {
   padding: .75rem 1rem;
+}
+.table-row-hover:hover {
+  background: rgb(255, 4, 4) !important;
 }

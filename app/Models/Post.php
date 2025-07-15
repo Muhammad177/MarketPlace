@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\Coments;
+use App\Models\Comemnts;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -79,7 +79,7 @@ class Post extends Model
     // Relasi dengan komentar
     public function comments()
     {
-        return $this->hasMany(Coment::class);
+        return $this->hasMany(Comment::class);
     }
 
     public function sluggable(): array

@@ -1,50 +1,61 @@
 <?php
 
+use Dom\Comment;
 use App\Models\Category;
 use App\Http\Middleware\role;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ComentsController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\AdminCategoryController;
-use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\post\PostController;
+use App\Http\Controllers\shop\ShopController;
+use App\Http\Controllers\admin\UserController;
 use Cviebrock\EloquentSluggable\Tests\Models\Post;
+use App\Http\Controllers\comment\CommentsController;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use App\Http\Controllers\admin\AdminCategoryController;
+use App\Http\Controllers\admin\DashboardPostController;
+use App\Http\Controllers\admin\DashboardShopController;
 
-Route::get('/', function () {
-    return view('user.index.home', [
-        'title' => 'Home',
-        'active' => 'home'
-    ]);
+Route::prefix('/')->group(function () {
+    Route::get('wahyu', function () {
+        return view('admin.dashboard.posts.wahyu');
+    });
+
+    Route::get('', function () {
+        return view('user.index.home', [
+            'title' => 'Home',
+            'active' => 'home'
+        ]);
+    });
+
+    Route::get('home', function () {
+        return view('user.index.home', [
+            'title' => 'Home',
+            'active' => 'home'
+        ]);
+    })->name('home');
 });
 
-Route::get('/home', function () {
-    return view('user.index.home', [
-        'title' => 'Home',
-        'active' => 'home'
-    ]);
-})->name('home');
 
 // Group routes with 'auth' middleware
 Route::middleware('auth')->group(function () {
     
     Route::post('/logout', [LoginController::class, 'logout']);
-
+    Route::resource('/shop', ShopController::class);
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [DashboardPostController::class, 'dashboard'])->name('dashboard.index');
         Route::get('/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
         Route::get('/categories/checkSlug', [AdminCategoryController::class, 'checkSlug']);
+        Route::get('/users', [AdminCategoryController::class, 'users']);
         Route::resource('/posts', DashboardPostController::class);
         Route::resource('/categories', AdminCategoryController::class)->middleware('role');
-
+        Route::resource('/shops', DashboardShopController::class);
         
     });
     Route::prefix('post')->group(function () {
     Route::get('/', [PostController::class, 'index']);
     Route::get('/{post:slug}', [PostController::class, 'show'])->name('post.show');
-    Route::resource('/coments', ComentsController::class);
+    Route::resource('/coments', CommentsController::class);
     });
      Route::resource('user', UserController::class)->only(['show', 'edit', 'update']);
 });

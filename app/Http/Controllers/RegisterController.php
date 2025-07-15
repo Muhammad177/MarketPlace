@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Stmt\Echo_;
-
+use App\Http\Controllers\Controller;
 class RegisterController extends Controller
 {
     // Menampilkan form registrasi

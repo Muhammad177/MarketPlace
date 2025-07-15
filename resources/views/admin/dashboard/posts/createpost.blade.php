@@ -12,7 +12,7 @@
 
   <div class="row">
     <div class="col-lg-8">
-      <form action="/dashboard/posts" method="post" class="mb-5" enctype="multipart/form-data">
+      <form action="{{ route('posts.store') }}" method="post" class="mb-5" enctype="multipart/form-data">
         @csrf
 
         {{-- Title --}}

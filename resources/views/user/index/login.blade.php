@@ -7,14 +7,32 @@
     <title>Bootstrap Login & Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/css/login.css">
+      @vite('resources/js/app.js')
   </head>
 
-  <body>
+  <body data-page="login">
 
 
     <div class="container d-flex">
+
+
       <div class="background"></div>
+    
+<style>
+  spline-viewer {
+    width: 90vw;
+    height: 90vh;
+    --spline-scale-mode: contain;
+    border-radius: 10px;
+    display: block;
+  }
+</style>
+
+</style>
+
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.24/build/spline-viewer.js"></script>
+
+<spline-viewer url="https://prod.spline.design/K6lHkay1QpB7sAxB/scene.splinecode"></spline-viewer>
 
       <div class="container d-flex flex-column vh-100">
         <!-- Login Form -->

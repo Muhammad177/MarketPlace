@@ -1,0 +1,69 @@
+    .card-category {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 1rem;
+}
+
+.card-category:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-category .card-body i {
+  transition: transform 0.3s ease;
+}
+
+.card-category:hover .card-body i {
+  transform: scale(1.2) rotate(5deg);
+}
+#loadingScreen {
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background-color: #ffffff; /* ubah ke #000 jika dark */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+#loadingScreen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.spinner {
+    width: 80px;
+    height: 80px;
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3498db;
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #3498db;
+    width: 0;
+    animation: typing 2s steps(10, end) infinite alternate, blink 0.5s step-end infinite alternate;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 180px; } /* atur sesuai panjang teks */
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}

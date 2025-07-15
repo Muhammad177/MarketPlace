@@ -25,32 +25,13 @@
     </div>
   </div>
 </div>
+@vite('resources/js/app.js')
 
-{{-- Script Chart --}}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const ctx = document.getElementById('postUserPieChart').getContext('2d');
-const postUserPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ['Posts', 'Users'],
-        datasets: [{
-            label: 'Jumlah',
-            data: [{{ $postCount }}, {{ $userCount }}],
-            backgroundColor: [
-                'rgba(54, 162, 235, 0.7)', // biru
-                'rgba(255, 99, 132, 0.7)'  // merah
-            ],
-            borderColor: [
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 99, 132, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true
-    }
-});
+    document.addEventListener('DOMContentLoaded', function () {
+        renderPostUserPieChart({{ $postCount }}, {{ $userCount }});
+    });
 </script>
+
+
 @endsection

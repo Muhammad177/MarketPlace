@@ -2,17 +2,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <title>wahyu</title>
-  <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+  <title>@yield('title')</title>
   <!-- Bootstrap 5 & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
 
   <!-- AOS -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  
+  @vite('resources/js/app.js')
+  
 </head>
 
-<body>
+<body data-page="@yield('page')">
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top ">
     <div class="container">
@@ -32,10 +34,13 @@
             <a class="nav-link {{ Request::is('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('post') ? 'active' : '' }}" href="/post">Post</a>
+            <a class="nav-link {{ Request::is('post*') ? 'active' : '' }}" href="/post">Post</a>
           </li>
           <li class="nav-item">
             <a class="nav-link {{ Request::is('categories') ? 'active' : '' }}" href="{{ route('categories') }}">Category</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link {{ Request::is('shop*') ? 'active' : '' }}" href="/shop">Shop</a>
           </li>
           <li class="nav-item">
             <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">About</a>
@@ -87,13 +92,7 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 800,
-      once: true
-    });
-  </script>
+
 </body>
 
 </html>

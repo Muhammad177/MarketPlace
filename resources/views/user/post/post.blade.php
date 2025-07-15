@@ -1,5 +1,7 @@
 @extends('user.index.navbar')
-<link rel="stylesheet" href="{{ asset('css/post.css') }}">
+@section('title', 'Post')
+@section('page', 'post')
+
 @section('container')
 <main class="pb-5">
   <header class="mb-5 text-center">

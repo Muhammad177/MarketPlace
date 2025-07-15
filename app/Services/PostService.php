@@ -3,65 +3,64 @@ namespace App\Services;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
-    public function getDashboardData()
+    public function getDashboardData(): array
     {
         return [
             'postCount' => Post::count(),
             'userCount' => User::count(),
             'topUsers' => User::withCount('posts')
-                            ->orderBy('posts_count', 'desc')
-                            ->take(3)
-                            ->get()
+                              ->orderBy('posts_count', 'desc')
+                              ->take(3)
+                              ->get(),
         ];
     }
 
-    public function getUserPosts($userId)
+    public function getUserPosts(int $userId)
     {
         return Post::where('user_id', $userId)->get();
     }
 
-    public function storePost($request)
+    public function storePost(array $data, ?UploadedFile $image = null): Post
     {
-        $data = $request->validated();
-
-        if ($request->file('image')) {
-            $data['image'] = $request->file('image')->store('post-images', 'public');
+        if ($image) {
+            $data['image'] = $image->store('post-images', 'public');
         }
 
         $data['user_id'] = auth()->id();
         $data['excerpt'] = Str::limit(strip_tags($data['body']), 200);
 
-        Post::create($data);
+        return Post::create($data);
     }
 
-    public function updatePost($request, Post $post)
+    public function updatePost(array $data, Post $post, ?UploadedFile $image = null): bool
     {
-        $data = $request->validated();
-
-        if ($request->file('image')) {
-            if ($request->oldImage) {
-                Storage::delete($request->oldImage);
+        if ($image) {
+            // Hapus gambar lama jika ada
+            if ($post->image) {
+                Storage::disk('public')->delete($post->image);
             }
-            $data['image'] = $request->file('image')->store('post-images');
+
+            $data['image'] = $image->store('post-images', 'public');
         }
 
-        $data['user_id'] = $post->user_id;
-        $data['excerpt'] = Str::limit(strip_tags($data['body']), 50);
+        // Jangan ubah user_id saat update
+        $data['excerpt'] = Str::limit(strip_tags($data['body']), 200);
 
-        $post->update($data);
+        return $post->update($data);
     }
 
-    public function deletePost(Post $post)
+    public function deletePost(Post $post): bool
     {
         if ($post->image) {
-            Storage::delete($post->image);
+            Storage::disk('public')->delete($post->image);
         }
 
-        $post->delete();
+        return $post->delete();
     }
 }

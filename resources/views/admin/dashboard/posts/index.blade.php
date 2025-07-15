@@ -63,9 +63,10 @@
         <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        Apakah kamu yakin ingin menghapus post ini?
-      </div>
+   <div class="modal-body text-dark">
+  Apakah kamu yakin ingin menghapus post ini?
+</div>
+
       <div class="modal-footer">
         <form id="deleteForm" method="POST">
           @csrf
@@ -89,9 +90,4 @@
   });
 </script>
 
-<style>
-  .table-row-hover:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
-</style>
 @endsection

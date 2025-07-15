@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\comment;
 
-use App\Models\Coment;
+use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class ComentsController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,7 +40,7 @@ class ComentsController extends Controller
     
         $validated['user_id'] = auth()->id();
     
-        $comment = Coment::create($validated);
+        $comment = Comment::create($validated);
     
         return response()->json([
             'message' => 'Komentar berhasil dikirim!',
@@ -52,7 +53,7 @@ class ComentsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Coment $coment)
+    public function show(Comment $Comment)
     {
         //
     }
@@ -60,7 +61,7 @@ class ComentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Coment $coment)
+    public function edit(Comment $Comment)
     {
         //
     }
@@ -68,7 +69,7 @@ class ComentsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Coment $coment)
+    public function update(Request $request, Comment $Comment)
     {
         //
     }
@@ -76,7 +77,7 @@ class ComentsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Coment $coment)
+    public function destroy(Comment $Comment)
     {
         //
     }

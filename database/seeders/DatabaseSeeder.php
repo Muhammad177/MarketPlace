@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Shop;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -41,26 +42,27 @@ class DatabaseSeeder extends Seeder
         // //     'user_id' => 1
         // // ]);
 
-Category::create([
-    'name' => 'Elektronik',
-    'slug' => 'elektronik'
-]);
+// Category::create([
+//     'name' => 'Elektronik',
+//     'slug' => 'elektronik'
+// ]);
 
-Category::create([
-    'name' => 'Kecantikan',
-    'slug' => 'kecantikan'
-]);
+// Category::create([
+//     'name' => 'Kecantikan',
+//     'slug' => 'kecantikan'
+// ]);
 
-Category::create([
-    'name' => 'Fashion',
-    'slug' => 'fashion'
-]);
+// Category::create([
+//     'name' => 'Fashion',
+//     'slug' => 'fashion'
+// ]);
 
-Category::create([
-    'name' => 'Peralatan Rumah Tangga',
-    'slug' => 'peralatan-rumah-tangga'
-]);
+// Category::create([
+//     'name' => 'Peralatan Rumah Tangga',
+//     'slug' => 'peralatan-rumah-tangga'
+// ]);
 
         Post::factory(3)->create();
+        Shop::factory(3)->create();
     }
 }

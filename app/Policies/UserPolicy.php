@@ -20,7 +20,7 @@ class UserPolicy
      */
    public function view(User $authUser, User $targetUser)
 {
-    return $authUser->id === $targetUser->id;
+    return $authUser->id === $targetUser->id || $authUser->is_admin;
 }
 
 public function update(User $authUser, User $targetUser)
